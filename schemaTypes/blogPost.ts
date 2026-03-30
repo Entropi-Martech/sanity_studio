@@ -285,8 +285,10 @@ export const blogPost = defineType({
         {
           type: "object",
           fields: [
-            { name: "question", type: "string", title: "Question", validation: (Rule) => Rule.required() },
-            { name: "answer", type: "text", title: "Answer", rows: 3, validation: (Rule) => Rule.required() },
+            { name: "question", type: "string", title: "Question (EN)", validation: (Rule) => Rule.required() },
+            { name: "answer", type: "text", title: "Answer (EN)", rows: 3, validation: (Rule) => Rule.required() },
+            { name: "questionId", type: "string", title: "Question (ID)" },
+            { name: "answerId", type: "text", title: "Answer (ID)", rows: 3 },
           ],
           preview: { select: { title: "question" } },
         },

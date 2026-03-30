@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@sanity/assist": "^4.0.0",
+    "@sanity/presentation": "^2.0.0",
     "@sanity/vision": "^3",
     "react": "^18",
     "react-dom": "^18",

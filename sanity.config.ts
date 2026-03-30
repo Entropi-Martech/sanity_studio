@@ -2,6 +2,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { assist } from "@sanity/assist";
+import { presentationTool } from "@sanity/presentation";
 import { schemaTypes } from "./schemaTypes";
 import { TranslateAction } from "./actions/translateAction";
 
@@ -37,6 +38,14 @@ export default defineConfig({
       translate: {
         document: {
           languageField: "__i18n_lang",
+        },
+      },
+    }),
+    presentationTool({
+      previewUrl: {
+        origin: "https://entro.ly",
+        previewMode: {
+          enable: "/api/draft-mode/enable",
         },
       },
     }),
