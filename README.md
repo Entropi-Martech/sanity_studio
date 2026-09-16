@@ -24,6 +24,7 @@ studio/
 ├── schemaTypes/
 │   ├── author.ts          # Schema: Author (name, credentials, social links)
 │   ├── blogPost.ts        # Schema: Blog Post (EN+ID fields, GEO blocks, FAQs)
+│   ├── discoveryPage.ts   # Schema: Discovery Page (programmatic SEO /stay/..., CDP-generated)
 │   ├── blockContent.ts    # Portable Text block types (16 types)
 │   └── index.ts
 ├── actions/
@@ -54,6 +55,27 @@ Field utama yang perlu diisi tim konten:
 | `lastVerifiedAt` | Tanggal terakhir fakta di-review — update tiap edit konten |
 | `faqs` | FAQ block — otomatis generate FAQPage JSON-LD |
 | `promptAlignedQueries` | Pertanyaan target untuk AI (GEO/Share of Model) |
+
+---
+
+## Schema: discoveryPage
+
+Halaman programmatic SEO (Discovery lane, PRD `cdp-build-prd` §4B). Unit = `[city] hotels with [attribute]`, URL `/stay/[city]-hotels-with-[attribute]/`. Dokumen **di-generate oleh CDP** setelah lolos publication gate — bukan ditulis tangan. Edit manual pada konten akan ditimpa saat CDP refresh.
+
+| Field | Keterangan |
+|-------|------------|
+| `vertical`, `cityName`, `citySlug`, `stateSlug`, `attributeSlug`, `attributeLabel`, `path` | Identitas + route (read-only, dari CDP) |
+| `h1` | Wajib mengandung nama kota (gate) |
+| `body` | Portable Text: qualification line, per-hotel facts + 1 `tiktokEmbed`, Q&A, FAQ |
+| `hotels` | Hotel yang lolos kualifikasi (`merchantId`, `name`) — min 1 |
+| `faqs` | Sumber FAQPage JSON-LD |
+| `title`, `metaDescription` | Meta title + description (≤155) |
+| `jsonLd` | JSON string ItemList + FAQPage yang sudah divalidasi gate. **Tanpa VideoObject.** Web merender apa adanya |
+| `verifiedOn` | Tanggal kualifikasi creator-visit (YYYY-MM-DD) |
+| `indexable` | OFF ⇒ `noindex` + keluar dari sitemap. Diisi oleh indexation gate CDP; override manual hanya kalau sengaja |
+| `publishedAt` | Diisi publisher saat pertama live |
+
+Renderer: Entro.ly-App route `/stay/...` (bukan blog). CDP source of truth: `content-distribution-platform/src/discovery/pages/types.ts` (`DiscoveryPageDocument`).
 
 ---
 
