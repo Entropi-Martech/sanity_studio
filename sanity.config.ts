@@ -2,7 +2,7 @@ import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { assist } from "@sanity/assist";
-import { presentationTool } from "@sanity/presentation";
+import { presentationTool } from "sanity/presentation";
 import { schemaTypes } from "./schemaTypes";
 import { TranslateAction } from "./actions/translateAction";
 
